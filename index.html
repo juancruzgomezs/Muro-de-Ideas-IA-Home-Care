@@ -4,370 +4,260 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muro de Ideas IA - Home Care</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
     <style>
         :root {
-            --blue-dark: #1a1a6e;
-            --blue-mid: #2d3fc7;
-            --blue-light: #00a0e3;
-            --bg: #f0f4ff;
-            --card-bg: #ffffff;
-            --text-dark: #1a1a2e;
-            --text-med: #4a4a6a;
-            --text-light: #8a8aaa;
-            --border: #e2e8f0;
-            --radius: 18px;
-            --radius-sm: 12px;
+            --blue-dark:#1a1a6e;--blue-mid:#2d3fc7;--blue-light:#00a0e3;
+            --bg:#f0f4ff;--card-bg:#fff;--text-dark:#1a1a2e;--text-med:#4a4a6a;
+            --text-light:#8a8aaa;--border:#e2e8f0;--fmt-bg:#eef2ff;--fmt-border:#d4daf7;
+            --radius:16px;--radius-sm:10px;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text-dark); min-height: 100vh; }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text-dark);min-height:100vh}
 
         /* HEADER */
-        .header {
-            background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 50%, var(--blue-light) 100%);
-            padding: 50px 20px 70px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.07) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 60%, rgba(0,160,227,0.1) 0%, transparent 40%);
-            pointer-events: none;
-        }
-        .header-inner { position: relative; z-index: 1; }
-        .header-emoji { font-size: 3.5rem; display: block; margin-bottom: 12px; animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .header h1 { font-size: 2.8rem; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 6px; }
-        .header .subtitle { font-size: 0.85rem; color: rgba(255,255,255,0.65); font-weight: 400; letter-spacing: 3px; text-transform: uppercase; }
-        .wave { position: absolute; bottom: -1px; left: 0; width: 100%; }
-        .wave svg { display: block; width: 100%; height: 40px; }
+        .header{background:linear-gradient(135deg,var(--blue-dark) 0%,var(--blue-mid) 50%,var(--blue-light) 100%);padding:50px 20px 70px;text-align:center;position:relative;overflow:hidden}
+        .header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(255,255,255,0.07) 0%,transparent 50%),radial-gradient(circle at 70% 60%,rgba(0,160,227,0.1) 0%,transparent 40%);pointer-events:none}
+        .header-inner{position:relative;z-index:1}
+        .header-emoji{font-size:3.5rem;display:block;margin-bottom:12px;animation:float 3.5s ease-in-out infinite}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        .header h1{font-size:2.8rem;font-weight:900;color:#fff;letter-spacing:-1px;margin-bottom:6px}
+        .header .subtitle{font-size:.85rem;color:rgba(255,255,255,.65);font-weight:400;letter-spacing:3px;text-transform:uppercase}
+        .wave{position:absolute;bottom:-1px;left:0;width:100%}
+        .wave svg{display:block;width:100%;height:40px}
 
-        /* CONTAINER */
-        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px 60px; }
+        /* FORM CONTAINER */
+        .form-wrap{max-width:800px;margin:0 auto;padding:40px 20px 36px}
+        .form-card{background:var(--card-bg);border-radius:var(--radius);padding:36px 32px;box-shadow:0 4px 20px rgba(0,0,0,.06);border:1px solid var(--border)}
+        .form-card-title{font-size:1.15rem;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+        .form-card-sub{font-size:.85rem;color:var(--text-light);margin-bottom:28px;line-height:1.5}
+        .field-group{margin-bottom:24px}
+        .field-label{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;color:var(--text-med);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+        .field-label .opt{font-weight:400;color:var(--text-light);text-transform:lowercase;font-style:italic;font-size:.75rem}
+        .field-input{width:100%;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;font-family:inherit;font-size:.9rem;color:var(--text-dark);background:#fafbff;transition:all .25s}
+        .field-input:focus{outline:none;border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(45,63,199,.1);background:#fff}
+        textarea.field-input{resize:vertical;min-height:80px}
+        .field-hint{font-size:.75rem;color:var(--text-light);margin-top:20px;font-style:italic;line-height:1.5}
+        .publish-btn{display:inline-flex;align-items:center;gap:6px;padding:12px 30px;background:linear-gradient(135deg,var(--blue-mid),var(--blue-light));color:#fff;border:none;border-radius:50px;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;box-shadow:0 4px 15px rgba(45,63,199,.3);margin-top:8px}
+        .publish-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(45,63,199,.4)}
+        .publish-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+        .msg{display:none;align-items:center;gap:10px;padding:14px 20px;border-radius:var(--radius-sm);font-size:.88rem;font-weight:500;margin-top:16px}
+        .msg-ok{background:#ecfdf5;border:1.5px solid #a7f3d0;color:#047857}
+        .msg-err{background:#fff5f5;border:1.5px solid #fca5a5;color:#b91c1c}
+        .msg.show{display:flex;animation:fadeIn .4s ease}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+        .shake{animation:shake .5s}
+        @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
 
-        /* FORM CARD */
-        .form-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 36px 32px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            border: 1px solid var(--border);
-            margin-bottom: 36px;
-        }
-        .form-card-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .form-card-sub {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-bottom: 28px;
-            line-height: 1.5;
-        }
-        .field-group { margin-bottom: 24px; }
-        .field-label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: var(--text-med);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .field-label .opt { font-weight: 400; color: var(--text-light); text-transform: lowercase; font-style: italic; font-size: 0.75rem; }
-        .field-input {
-            width: 100%;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 14px 16px;
-            font-family: inherit;
-            font-size: 0.9rem;
-            color: var(--text-dark);
-            background: #fafbff;
-            transition: all 0.25s ease;
-        }
-        .field-input:focus { outline: none; border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(45,63,199,0.1); background: #fff; }
-        textarea.field-input { resize: vertical; min-height: 80px; }
-        .field-hint {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-top: 20px;
-            font-style: italic;
-            display: flex;
-            align-items: flex-start;
-            gap: 6px;
-            line-height: 1.5;
-        }
-        .publish-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, var(--blue-mid), var(--blue-light));
-            color: #fff;
-            border: none;
-            border-radius: 50px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(45,63,199,0.3);
-            margin-top: 8px;
-        }
-        .publish-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(45,63,199,0.4); }
-        .publish-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
-        /* MESSAGES */
-        .msg { display: none; align-items: center; gap: 10px; padding: 14px 20px; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 500; margin-top: 16px; }
-        .msg-ok { background: #ecfdf5; border: 1.5px solid #a7f3d0; color: #047857; }
-        .msg-err { background: #fff5f5; border: 1.5px solid #fca5a5; color: #b91c1c; }
-        .msg.show { display: flex; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-        .shake { animation: shake 0.5s ease; }
-        @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
-
-        /* TOOLBAR */
-        .toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; align-items: center; }
-        .toolbar-left { display: flex; gap: 12px; flex-wrap: wrap; flex: 1; align-items: center; }
-        .toolbar-title { font-weight: 700; display: flex; align-items: center; gap: 8px; font-size: 1.1rem; white-space: nowrap; }
-        .count-badge { background: linear-gradient(135deg, var(--blue-mid), var(--blue-light)); color: #fff; font-size: 0.72rem; padding: 2px 10px; border-radius: 50px; font-weight: 600; }
-        .search-box { display: flex; align-items: center; gap: 8px; background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 50px; padding: 8px 16px; flex: 1; max-width: 320px; transition: all 0.25s; }
-        .search-box:focus-within { border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(45,63,199,0.08); }
-        .search-box input { border: none; outline: none; font-family: inherit; font-size: 0.85rem; width: 100%; background: transparent; }
-        .sort-select { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 50px; padding: 8px 16px; font-family: inherit; font-size: 0.82rem; color: var(--text-med); cursor: pointer; }
-        .sort-select:focus { outline: none; border-color: var(--blue-mid); }
+        /* STICKY BAR */
+        .sticky-bar{position:sticky;top:0;z-index:100;background:#fff;border-bottom:3px solid var(--blue-mid);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+        .sticky-left{display:flex;align-items:center;gap:10px}
+        .sticky-title{font-weight:700;font-size:1rem;display:flex;align-items:center;gap:8px}
+        .live-badge{background:#ef4444;color:#fff;font-size:.62rem;font-weight:700;padding:3px 10px;border-radius:50px;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:4px}
+        .live-dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:pulse 1.5s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+        .sticky-right{display:flex;align-items:center;gap:10px}
+        .ideas-badge{background:var(--blue-mid);color:#fff;font-size:.78rem;font-weight:600;padding:5px 14px;border-radius:50px;display:flex;align-items:center;gap:6px}
+        .export-btn{background:#fff;border:1.5px solid var(--border);border-radius:50px;padding:5px 14px;font-family:inherit;font-size:.78rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;color:var(--text-med)}
+        .export-btn:hover{border-color:var(--blue-mid);color:var(--blue-mid)}
+        .search-mini{display:flex;align-items:center;gap:5px;border:1.5px solid var(--border);border-radius:50px;padding:5px 12px;background:#fafbff}
+        .search-mini:focus-within{border-color:var(--blue-mid)}
+        .search-mini input{border:none;outline:none;font-family:inherit;font-size:.8rem;width:120px;background:transparent}
 
         /* GRID */
-        .ideas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .ideas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;padding:28px 24px 40px;max-width:1100px;margin:0 auto;align-items:start}
 
         /* CARD */
-        .idea-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 24px;
-            border: 1px solid var(--border);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            animation: cardIn 0.4s ease;
-        }
-        @keyframes cardIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .idea-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.08); border-color: rgba(45,63,199,0.2); }
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
-        .card-tag { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 12px; border-radius: 50px; background: #eef2ff; color: var(--blue-mid); white-space: nowrap; }
-        .card-date { font-size: 0.73rem; color: var(--text-light); white-space: nowrap; }
-        .card-section { margin-bottom: 14px; }
-        .card-label { font-size: 0.7rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-        .card-text { font-size: 0.88rem; color: var(--text-dark); line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
-        .card-text.empty { color: var(--text-light); font-style: italic; font-size: 0.8rem; }
-        .card-footer { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-        .vote-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 50px; border: 1.5px solid var(--border); background: #fafbff; font-family: inherit; font-size: 0.83rem; font-weight: 600; color: var(--text-med); cursor: pointer; transition: all 0.25s ease; }
-        .vote-btn:hover { border-color: var(--blue-mid); color: var(--blue-mid); background: #eef2ff; }
-        .vote-btn.voted { background: linear-gradient(135deg, var(--blue-mid), var(--blue-light)); color: #fff; border-color: transparent; }
-        .vote-btn.voted:hover { opacity: 0.85; }
-        .delete-btn { background: none; border: none; cursor: pointer; font-size: 1rem; opacity: 0.25; transition: opacity 0.2s; padding: 4px; }
-        .delete-btn:hover { opacity: 0.75; }
-        .state-container { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-light); }
-        .state-icon { font-size: 3rem; display: block; margin-bottom: 12px; }
-        .retry-btn { margin-top: 16px; padding: 10px 24px; border-radius: 50px; border: 1.5px solid var(--border); background: var(--card-bg); font-family: inherit; font-size: 0.85rem; cursor: pointer; }
-        .retry-btn:hover { border-color: var(--blue-mid); color: var(--blue-mid); }
+        .idea-card{background:var(--card-bg);border-radius:var(--radius);padding:24px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.04);transition:all .3s;display:flex;flex-direction:column;animation:cardIn .4s ease}
+        @keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        .idea-card:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(0,0,0,.08)}
+        .card-pregunta{font-size:.92rem;font-weight:600;color:var(--text-dark);line-height:1.5;margin-bottom:16px}
+        .card-section{margin-bottom:14px}
+        .card-lbl{font-size:.68rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+        .card-txt{font-size:.84rem;color:var(--text-dark);line-height:1.55;word-break:break-word;white-space:pre-wrap}
+        .card-fmt-box{background:var(--fmt-bg);border:1px solid var(--fmt-border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:16px}
+        .card-fmt-box .card-lbl{color:var(--blue-mid)}
+        .card-fmt-box .card-txt{font-size:.82rem}
+        .card-footer{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between}
+        .vote-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;border-radius:50px;border:1.5px solid var(--border);background:#fafbff;font-family:inherit;font-size:.82rem;font-weight:600;color:var(--text-med);cursor:pointer;transition:all .25s}
+        .vote-btn:hover{border-color:#f59e0b;color:#f59e0b;background:#fffbeb}
+        .vote-btn.voted{background:#fffbeb;color:#f59e0b;border-color:#fcd34d}
+        .card-date{font-size:.75rem;color:var(--text-light)}
+        .state-container{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-light)}
+        .state-icon{font-size:3rem;display:block;margin-bottom:12px}
 
-        @media (max-width: 600px) {
-            .header h1 { font-size: 1.8rem; }
-            .header { padding: 36px 16px 55px; }
-            .container { padding: 28px 14px 40px; }
-            .form-card { padding: 24px 18px; }
-            .ideas-grid { grid-template-columns: 1fr; }
-            .toolbar { flex-direction: column; align-items: stretch; }
-            .search-box { max-width: 100%; }
-            .toolbar-left { flex-direction: column; }
+        /* FOOTER */
+        .footer{text-align:center;padding:24px 20px;border-top:1px solid var(--border);margin-top:10px;font-size:.78rem;color:var(--text-light)}
+        .footer strong{color:var(--text-dark);font-weight:700}
+
+        @media(max-width:700px){
+            .header h1{font-size:1.8rem}.header{padding:36px 16px 55px}
+            .form-wrap{padding:28px 14px 24px}.form-card{padding:24px 18px}
+            .ideas-grid{grid-template-columns:1fr;padding:20px 14px}
+            .sticky-bar{padding:10px 14px}.search-mini input{width:80px}
+            .sticky-right{flex-wrap:wrap}
         }
     </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
     <div class="header-inner">
         <span class="header-emoji">🤖</span>
         <h1>Muro de Ideas IA</h1>
         <p class="subtitle">Home Care · Dejá tu pregunta</p>
     </div>
-    <div class="wave">
-        <svg viewBox="0 0 1440 40" preserveAspectRatio="none">
-            <path d="M0,0 C360,40 1080,40 1440,0 L1440,40 L0,40 Z" fill="#f0f4ff"/>
-        </svg>
-    </div>
+    <div class="wave"><svg viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0,0 C360,40 1080,40 1440,0 L1440,40 L0,40 Z" fill="#f0f4ff"/></svg></div>
 </div>
 
-<div class="container">
-
-    <!-- FORM -->
+<!-- FORM -->
+<div class="form-wrap">
     <div class="form-card" id="formCard">
         <div class="form-card-title">💡 Dejá tu idea para el agente</div>
         <p class="form-card-sub">Completá lo que quieras — todos los campos son opcionales. Podés dejar solo una pregunta, solo cómo querés que responda, o todo junto.</p>
-
         <div class="field-group">
             <div class="field-label">❓ ¿Qué le preguntarías al agente? <span class="opt">(opcional)</span></div>
             <input type="text" id="inputQ" class="field-input" placeholder="Ej: ¿Cómo viene la evolución de Suavizantes concentrados en los últimos 6 meses?">
         </div>
-
         <div class="field-group">
             <div class="field-label">💬 ¿Cómo te gustaría que responda? <span class="opt">(opcional)</span></div>
             <textarea id="inputA" class="field-input" placeholder="Ej: Que me diga si estamos arriba o abajo del objetivo y me explique por qué..." rows="3"></textarea>
         </div>
-
         <div class="field-group">
             <div class="field-label">📊 ¿Con qué te gustaría que responda específicamente? <span class="opt">(opcional)</span></div>
             <textarea id="inputF" class="field-input" placeholder="Ej: Con un gráfico de barras, con una tabla comparativa, que tenga en cuenta los objetivos del mix, etc." rows="3"></textarea>
         </div>
-
         <p class="field-hint">🚀 Podés pedir gráficos, tablas, comparativas, o que tenga en cuenta datos específicos como objetivos, mix, precios, etc.</p>
-
         <button class="publish-btn" id="submitBtn" onclick="submitIdea()">＋ Publicar</button>
-
         <div class="msg msg-ok" id="successMsg">✅ ¡Publicado con éxito!</div>
         <div class="msg msg-err" id="errorMsg">⚠️ <span id="errorText"></span></div>
     </div>
+</div>
 
-    <!-- TOOLBAR -->
-    <div class="toolbar">
-        <div class="toolbar-left">
-            <div class="toolbar-title">🧱 Ideas <span class="count-badge" id="countBadge">0</span></div>
-            <div class="search-box">
-                <span>🔍</span>
-                <input type="text" id="searchInput" placeholder="Buscar ideas..." oninput="renderIdeas()">
-            </div>
-        </div>
-        <select class="sort-select" id="sortSelect" onchange="renderIdeas()">
-            <option value="votos-desc">🔥 Más votadas</option>
-            <option value="fecha-desc">🕐 Más recientes</option>
-            <option value="fecha-asc">📅 Más antiguas</option>
-        </select>
+<!-- STICKY BAR -->
+<div class="sticky-bar">
+    <div class="sticky-left">
+        <div class="sticky-title">💡 Preguntas del equipo</div>
+        <span class="live-badge"><span class="live-dot"></span> EN VIVO</span>
     </div>
-
-    <!-- GRID -->
-    <div class="ideas-grid" id="ideasGrid">
-        <div class="state-container">
-            <span class="state-icon">⏳</span>
-            <p>Conectando con la base de datos...</p>
-        </div>
+    <div class="sticky-right">
+        <div class="search-mini"><span>🔍</span><input type="text" id="searchInput" placeholder="Buscar..." oninput="renderIdeas()"></div>
+        <div class="ideas-badge">💡 Ideas <span id="countBadge">0</span></div>
+        <button class="export-btn" onclick="exportCSV()">📥 Exportar CSV</button>
     </div>
 </div>
 
+<!-- GRID -->
+<div class="ideas-grid" id="ideasGrid">
+    <div class="state-container"><span class="state-icon">⏳</span><p>Conectando...</p></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer"><strong>Unilever</strong> · AI Team | Commercial AI · HC</div>
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
 <script>
-const firebaseConfig = {
-    apiKey: "AIzaSyCq-3buQjF4ilDvUkd6Xj-znZnOXRtkb0Q",
-    authDomain: "muro-ideas-homecare.firebaseapp.com",
-    databaseURL: "https://muro-ideas-homecare-default-rtdb.firebaseio.com",
-    projectId: "muro-ideas-homecare",
-    storageBucket: "muro-ideas-homecare.firebasestorage.app",
-    messagingSenderId: "911675318571",
-    appId: "1:911675318571:web:9fad33032f0481dbbba56e"
-};
+const firebaseConfig={apiKey:"AIzaSyCq-3buQjF4ilDvUkd6Xj-znZnOXRtkb0Q",authDomain:"muro-ideas-homecare.firebaseapp.com",databaseURL:"https://muro-ideas-homecare-default-rtdb.firebaseio.com",projectId:"muro-ideas-homecare",storageBucket:"muro-ideas-homecare.firebasestorage.app",messagingSenderId:"911675318571",appId:"1:911675318571:web:9fad33032f0481dbbba56e"};
 
-let db, ideasRef, allIdeas = [];
+let db,ideasRef,allIdeas=[];
+const VOTES_KEY="hc_muro_votes_v2";
 
-function escHtml(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
-function isVoted(k) { return (JSON.parse(localStorage.getItem("hc_muro_votes") || "[]")).includes(k); }
-function setVoted(k) { const v = JSON.parse(localStorage.getItem("hc_muro_votes") || "[]"); if (!v.includes(k)) v.push(k); localStorage.setItem("hc_muro_votes", JSON.stringify(v)); }
-function removeVoted(k) { localStorage.setItem("hc_muro_votes", JSON.stringify((JSON.parse(localStorage.getItem("hc_muro_votes") || "[]")).filter(v => v !== k))); }
-function formatDate(ts) { return ts ? new Date(ts).toLocaleDateString("es-AR", { day: "numeric", month: "short", year: "numeric" }) : "hoy"; }
+function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function getVotes(){return JSON.parse(localStorage.getItem(VOTES_KEY)||"{}")}
+function isVoted(k){return !!getVotes()[k]}
+function setVoted(k){const v=getVotes();v[k]=Date.now();localStorage.setItem(VOTES_KEY,JSON.stringify(v))}
+function removeVoted(k){const v=getVotes();delete v[k];localStorage.setItem(VOTES_KEY,JSON.stringify(v))}
 
-function showMsg(type, msg) {
-    const el = document.getElementById(type === "ok" ? "successMsg" : "errorMsg");
-    if (type === "ok") el.textContent = "✅ " + msg; else document.getElementById("errorText").textContent = msg;
-    el.classList.add("show"); setTimeout(() => el.classList.remove("show"), 4000);
+function fmtDate(ts){
+    if(!ts)return"";
+    const d=new Date(ts);
+    const meses=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+    return d.getDate()+" "+meses[d.getMonth()];
 }
-function hideMessages() { document.getElementById("successMsg").classList.remove("show"); document.getElementById("errorMsg").classList.remove("show"); }
 
-function renderIdeas() {
-    const grid = document.getElementById("ideasGrid");
-    const search = document.getElementById("searchInput").value.toLowerCase().trim();
-    const sort = document.getElementById("sortSelect").value;
-    let f = allIdeas.filter(i => !search || ((i.pregunta||"")+" "+(i.respuesta||"")+" "+(i.formato||"")).toLowerCase().includes(search));
-    if (sort === "votos-desc") f.sort((a, b) => (b.votos||0) - (a.votos||0));
-    else if (sort === "fecha-desc") f.sort((a, b) => (b.fecha||0) - (a.fecha||0));
-    else f.sort((a, b) => (a.fecha||0) - (b.fecha||0));
-    document.getElementById("countBadge").textContent = f.length;
-    if (!f.length) {
-        grid.innerHTML = '<div class="state-container"><span class="state-icon">' + (search ? '🔍' : '📭') + '</span><p><strong>' + (search ? "No se encontraron resultados" : "¡Todavía no hay ideas!") + '</strong></p><p style="font-size:0.85rem;margin-top:4px;">' + (search ? "Probá con otra búsqueda." : "Sé el primero en publicar una. 🚀") + '</p></div>';
-        return;
-    }
-    let h = "";
-    f.forEach(i => {
-        const voted = isVoted(i.key), preg = i.pregunta ? escHtml(i.pregunta) : "", resp = i.respuesta ? escHtml(i.respuesta) : "", fmt = i.formato ? escHtml(i.formato) : "";
-        h += '<div class="idea-card"><div class="card-header">' + (fmt ? '<span class="card-tag">' + fmt + '</span>' : '<span></span>') + '<span class="card-date">📅 ' + formatDate(i.fecha) + '</span></div>';
-        if (preg) h += '<div class="card-section"><div class="card-label">❓ Pregunta</div><div class="card-text">' + preg + '</div></div>';
-        if (resp) h += '<div class="card-section"><div class="card-label">💬 Cómo responder</div><div class="card-text">' + resp + '</div></div>';
-        if (fmt) h += '<div class="card-section"><div class="card-label">📊 Formato</div><div class="card-text">' + fmt + '</div></div>';
-        if (!preg && !resp && !fmt) h += '<div class="card-section"><div class="card-text empty">Sin contenido</div></div>';
-        h += '<div class="card-footer"><button class="vote-btn ' + (voted ? "voted" : "") + '" onclick="toggleVote(\'' + i.key + '\',' + (i.votos||0) + ',' + (voted ? 'true' : 'false') + ')">' + (voted ? '✅' : '👍') + ' <span>' + (i.votos||0) + '</span></button>';
-        h += '<button class="delete-btn" onclick="deleteIdea(\'' + i.key + '\')" title="Eliminar">🗑️</button></div></div>';
+function showMsg(t,m){
+    const el=document.getElementById(t==="ok"?"successMsg":"errorMsg");
+    if(t==="ok")el.textContent="\u2705 "+m;else document.getElementById("errorText").textContent=m;
+    el.classList.add("show");setTimeout(()=>el.classList.remove("show"),4000);
+}
+function hideMessages(){document.getElementById("successMsg").classList.remove("show");document.getElementById("errorMsg").classList.remove("show")}
+
+function renderIdeas(){
+    const grid=document.getElementById("ideasGrid");
+    const search=document.getElementById("searchInput").value.toLowerCase().trim();
+    let f=allIdeas.filter(i=>!search||((i.pregunta||"")+" "+(i.respuesta||"")+" "+(i.formato||"")).toLowerCase().includes(search));
+    f.sort((a,b)=>(b.votos||0)-(a.votos||0)||(b.fecha||0)-(a.fecha||0));
+    document.getElementById("countBadge").textContent=f.length;
+    if(!f.length){grid.innerHTML='<div class="state-container"><span class="state-icon">'+(search?"\uD83D\uDD0D":"\uD83D\uDCED")+'</span><p><strong>'+(search?"No se encontraron resultados":"\u00a1Todav\u00eda no hay ideas!")+"</strong></p></div>";return}
+    let h="";
+    f.forEach(i=>{
+        const voted=isVoted(i.key);
+        const preg=i.pregunta?esc(i.pregunta):"";
+        const resp=i.respuesta?esc(i.respuesta):"";
+        const fmt=i.formato?esc(i.formato):"";
+        h+='<div class="idea-card">';
+        if(preg)h+='<div class="card-pregunta">\u2753 '+preg+'</div>';
+        if(resp)h+='<div class="card-section"><div class="card-lbl">\uD83D\uDCAC RESPUESTA ESPERADA</div><div class="card-txt">'+resp+'</div></div>';
+        if(fmt)h+='<div class="card-fmt-box"><div class="card-lbl">\uD83D\uDCCA FORMATO / INFO ESPEC\u00cdFICA</div><div class="card-txt">'+fmt+'</div></div>';
+        h+='<div class="card-footer"><button class="vote-btn'+(voted?" voted":"")+'" onclick="toggleVote(\''+i.key+'\')">\uD83D\uDC4D '+(i.votos||0)+'</button><span class="card-date">'+fmtDate(i.fecha)+'</span></div>';
+        h+='</div>';
     });
-    grid.innerHTML = h;
+    grid.innerHTML=h;
 }
 
-async function toggleVote(k, v, voted) {
-    if (!ideasRef) return;
-    try { if (voted) { await ideasRef.child(k).update({ votos: Math.max(0, v - 1) }); removeVoted(k); } else { await ideasRef.child(k).update({ votos: v + 1 }); setVoted(k); } } catch (e) { console.error(e); }
-}
-
-async function deleteIdea(k) {
-    if (!ideasRef || !confirm("¿Seguro que querés eliminar esta idea?")) return;
-    try { await ideasRef.child(k).remove(); removeVoted(k); } catch (e) { showMsg("err", "No se pudo eliminar."); }
-}
-
-async function submitIdea() {
-    hideMessages();
-    const q = document.getElementById("inputQ").value.trim();
-    const a = document.getElementById("inputA").value.trim();
-    const f = document.getElementById("inputF").value.trim();
-    if (!q && !a && !f) {
-        showMsg("err", "Completá al menos un campo para publicar.");
-        document.getElementById("formCard").classList.add("shake");
-        setTimeout(() => document.getElementById("formCard").classList.remove("shake"), 500);
-        return;
-    }
-    const btn = document.getElementById("submitBtn"); btn.disabled = true; btn.textContent = "⏳ Publicando...";
-    try {
-        await ideasRef.push({ pregunta: q, respuesta: a, formato: f, votos: 0, fecha: firebase.database.ServerValue.TIMESTAMP });
-        document.getElementById("inputQ").value = "";
-        document.getElementById("inputA").value = "";
-        document.getElementById("inputF").value = "";
-        showMsg("ok", "¡Publicado con éxito! Gracias por tu idea.");
-    } catch (e) { showMsg("err", "No se pudo publicar. Intentá de nuevo."); }
-    finally { btn.disabled = false; btn.textContent = "＋ Publicar"; }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    try {
-        firebase.initializeApp(firebaseConfig);
-        db = firebase.database();
-        ideasRef = db.ref("muro_ideas");
-        ideasRef.on("value", snap => {
-            const data = snap.val(); allIdeas = [];
-            if (data) Object.keys(data).forEach(k => allIdeas.push({ key: k, ...data[k] }));
-            renderIdeas();
-        }, err => {
-            document.getElementById("ideasGrid").innerHTML = '<div class="state-container"><span class="state-icon">🔌</span><p><strong>No se pudo conectar</strong></p><button class="retry-btn" onclick="location.reload()">🔄 Reintentar</button></div>';
+async function toggleVote(k){
+    if(!ideasRef)return;
+    const voted=isVoted(k);
+    try{
+        await ideasRef.child(k).child("votos").transaction(curr=>{
+            if(voted)return Math.max(0,(curr||0)-1);
+            return(curr||0)+1;
         });
-    } catch (e) {
-        document.getElementById("ideasGrid").innerHTML = '<div class="state-container"><span class="state-icon">🔌</span><p>' + escHtml(e.message) + '</p></div>';
-    }
+        if(voted)removeVoted(k);else setVoted(k);
+    }catch(e){console.error(e)}
+}
+
+async function submitIdea(){
+    hideMessages();
+    const q=document.getElementById("inputQ").value.trim();
+    const a=document.getElementById("inputA").value.trim();
+    const f=document.getElementById("inputF").value.trim();
+    if(!q&&!a&&!f){showMsg("err","Complet\u00e1 al menos un campo.");document.getElementById("formCard").classList.add("shake");setTimeout(()=>document.getElementById("formCard").classList.remove("shake"),500);return}
+    const btn=document.getElementById("submitBtn");btn.disabled=true;btn.textContent="\u23F3 Publicando...";
+    try{
+        await ideasRef.push({pregunta:q,respuesta:a,formato:f,votos:0,fecha:firebase.database.ServerValue.TIMESTAMP});
+        document.getElementById("inputQ").value="";document.getElementById("inputA").value="";document.getElementById("inputF").value="";
+        showMsg("ok","\u00a1Publicado con \u00e9xito! Gracias por tu idea.");
+    }catch(e){showMsg("err","No se pudo publicar.");}
+    finally{btn.disabled=false;btn.textContent="\uFF0B Publicar"}
+}
+
+function exportCSV(){
+    if(!allIdeas.length){alert("No hay ideas para exportar.");return}
+    let csv="Pregunta,Respuesta esperada,Formato,Votos,Fecha\n";
+    allIdeas.forEach(i=>{
+        const row=[i.pregunta||"",i.respuesta||"",i.formato||"",i.votos||0,i.fecha?new Date(i.fecha).toLocaleDateString("es-AR"):""].map(c=>'"'+String(c).replace(/"/g,'""')+'"');
+        csv+=row.join(",")+"\n";
+    });
+    const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
+    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ideas_homecare.csv";a.click();
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+    try{
+        firebase.initializeApp(firebaseConfig);
+        db=firebase.database();
+        ideasRef=db.ref("muro_ideas");
+        ideasRef.on("value",snap=>{
+            const data=snap.val();allIdeas=[];
+            if(data)Object.keys(data).forEach(k=>allIdeas.push({key:k,...data[k]}));
+            renderIdeas();
+        },err=>{
+            document.getElementById("ideasGrid").innerHTML='<div class="state-container"><span class="state-icon">\uD83D\uDD0C</span><p><strong>No se pudo conectar</strong></p></div>';
+        });
+    }catch(e){document.getElementById("ideasGrid").innerHTML='<div class="state-container"><p>'+esc(e.message)+'</p></div>'}
 });
 </script>
 </body>
