@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muro de Ideas — Home Care</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --uni-blue: #1F36C7;
+            --uni-blue-light: #00A0E3;
+            --uni-blue-dark: #0D1B6F;
+            --bg: #F0F4FF;
+            --card-bg: #FFFFFF;
+            --text-dark: #1A1A2E;
+            --text-med: #4A4A6A;
+            --text-light: #8A8AAA;
+            --border: #E2E8F0;
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text-dark); min-height: 100vh; }
+        .header { background: linear-gradient(135deg, var(--uni-blue-dark) 0%, var(--uni-blue) 45%, var(--uni-blue-light) 100%); padding: 48px 20px 65px; text-align: center; position: relative; overflow: hidden; }
+        .header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 30%, rgba(0,160,227,0.12) 0%, transparent 40%); pointer-events: none; }
+        .header-inner { position: relative; z-index: 1; }
+        .header-emoji { font-size: 3.2rem; display: block; margin-bottom: 8px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .header h1 { font-size: 2.4rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-bottom: 4px; }
+        .header p { font-size: 1rem; color: rgba(255,255,255,0.75); font-weight: 300; letter-spacing: 2px; text-transform: uppercase; }
+        .wave { position: absolute; bottom: -1px; left: 0; width: 100%; }
+        .wave svg { display: block; width: 100%; height: 38px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 36px 20px 60px; }
+        .form-section { background: var(--card-bg); border-radius: var(--radius); padding: 32px 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid var(--border); margin-bottom: 32px; transition: box-shadow 0.3s; }
+        .form-section:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .form-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
+        .form-subtitle { font-size: 0.85rem; color: var(--text-light); margin-bottom: 22px; margin-top: -12px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 600; color: var(--text-med); margin-bottom: 7px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .optional-tag { font-size: 0.7rem; font-weight: 400; color: var(--text-light); text-transform: lowercase; font-style: italic; }
+        .form-textarea, .form-select { width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; font-family: inherit; font-size: 0.92rem; color: var(--text-dark); transition: all 0.25s ease; background: #FAFBFF; }
+        .form-textarea:focus, .form-select:focus { outline: none; border-color: var(--uni-blue); box-shadow: 0 0 0 3px rgba(31,54,199,0.12); background: #fff; }
+        .form-textarea { resize: vertical; min-height: 72px; }
+        .form-select { cursor: pointer; }
+        .form-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 22px 0; }
+        .form-hint { font-size: 0.75rem; color: var(--text-light); margin-top: 5px; font-style: italic; }
+        .submit-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 32px; background: linear-gradient(135deg, var(--uni-blue), var(--uni-blue-light)); color: #fff; border: none; border-radius: 50px; font-family: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(31,54,199,0.3); margin-top: 6px; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(31,54,199,0.4); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .success-msg, .error-msg { display: none; align-items: center; gap: 10px; padding: 14px 20px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500; margin-top: 16px; }
+        .success-msg { background: #ECFDF5; border: 1.5px solid #A7F3D0; color: #047857; }
+        .error-msg { background: #FFF5F5; border: 1.5px solid #FCA5A5; color: #B91C1C; }
+        .success-msg.show, .error-msg.show { display: flex; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        .shake { animation: shake 0.5s ease; }
+        @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+        .toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; align-items: center; }
+        .toolbar-left { display: flex; gap: 12px; flex-wrap: wrap; flex: 1; align-items: center; }
+        .toolbar-title { font-weight: 700; display: flex; align-items: center; gap: 8px; font-size: 1.1rem; white-space: nowrap; }
+        .count-badge { background: linear-gradient(135deg, var(--uni-blue), var(--uni-blue-light)); color: #fff; font-size: 0.75rem; padding: 2px 10px; border-radius: 50px; font-weight: 600; }
+        .search-box { display: flex; align-items: center; gap: 8px; background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 50px; padding: 8px 16px; flex: 1; max-width: 340px; transition: all 0.25s; }
+        .search-box:focus-within { border-color: var(--uni-blue); box-shadow: 0 0 0 3px rgba(31,54,199,0.1); }
+        .search-box input { border: none; outline: none; font-family: inherit; font-size: 0.88rem; width: 100%; background: transparent; color: var(--text-dark); }
+        .sort-select { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 50px; padding: 8px 16px; font-family: inherit; font-size: 0.85rem; color: var(--text-med); cursor: pointer; }
+        .sort-select:focus { outline: none; border-color: var(--uni-blue); }
+        .ideas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .idea-card { background: var(--card-bg); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: all 0.3s ease; display: flex; flex-direction: column; animation: cardIn 0.4s ease; }
+        @keyframes cardIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .idea-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.08); border-color: rgba(31,54,199,0.2); }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+        .card-formato { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 12px; border-radius: 50px; background: linear-gradient(135deg, #EEF2FF, #E8EDFF); color: var(--uni-blue); white-space: nowrap; }
+        .card-date { font-size: 0.75rem; color: var(--text-light); white-space: nowrap; }
+        .card-section { margin-bottom: 14px; }
+        .card-label { font-size: 0.72rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .card-text { font-size: 0.9rem; color: var(--text-dark); line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+        .card-text.empty { color: var(--text-light); font-style: italic; font-size: 0.82rem; }
+        .card-footer { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+        .vote-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 50px; border: 1.5px solid var(--border); background: #FAFBFF; font-family: inherit; font-size: 0.85rem; font-weight: 600; color: var(--text-med); cursor: pointer; transition: all 0.25s ease; }
+        .vote-btn:hover { border-color: var(--uni-blue); color: var(--uni-blue); background: #EEF2FF; }
+        .vote-btn.voted { background: linear-gradient(135deg, var(--uni-blue), var(--uni-blue-light)); color: #fff; border-color: transparent; }
+        .vote-btn.voted:hover { opacity: 0.85; }
+        .delete-btn { background: none; border: none; cursor: pointer; font-size: 1rem; opacity: 0.3; transition: opacity 0.2s; padding: 4px; }
+        .delete-btn:hover { opacity: 0.8; }
+        .state-container { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-light); }
+        .state-icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+        .retry-btn { margin-top: 16px; padding: 10px 24px; border-radius: 50px; border: 1.5px solid var(--border); background: var(--card-bg); font-family: inherit; font-size: 0.88rem; font-weight: 500; cursor: pointer; }
+        .retry-btn:hover { border-color: var(--uni-blue); color: var(--uni-blue); }
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.6rem; }
+            .header { padding: 32px 16px 50px; }
+            .container { padding: 24px 14px 40px; }
+            .form-section { padding: 22px 18px; }
+            .ideas-grid { grid-template-columns: 1fr; }
+            .toolbar { flex-direction: column; align-items: stretch; }
+            .search-box { max-width: 100%; }
+            .toolbar-left { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-inner">
+        <span class="header-emoji">💡</span>
+        <h1>Muro de Ideas</h1>
+        <p>Home Care</p>
+    </div>
+    <div class="wave">
+        <svg viewBox="0 0 1440 38" preserveAspectRatio="none">
+            <path d="M0,0 C360,38 1080,38 1440,0 L1440,38 L0,38 Z" fill="#F0F4FF"/>
+        </svg>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form-section" id="formSection">
+        <div class="form-title">📝 Publicá tu idea</div>
+        <p class="form-subtitle">Compartí preguntas, propuestas o ideas para mejorar nuestros reportes y análisis.</p>
+        <div class="form-group">
+            <label>❓ Pregunta o idea</label>
+            <textarea id="inputQ" class="form-textarea" placeholder="¿Qué pregunta te gustaría responder? ¿Qué idea tenés?" rows="3"></textarea>
+        </div>
+        <div class="form-divider"></div>
+        <div class="form-group">
+            <label>💬 Respuesta sugerida <span class="optional-tag">(opcional)</span></label>
+            <textarea id="inputA" class="form-textarea" placeholder="Si tenés una respuesta o propuesta, escribila acá..." rows="3"></textarea>
+        </div>
+        <div class="form-divider"></div>
+        <div class="form-group">
+            <label>📊 Formato esperado <span class="optional-tag">(opcional)</span></label>
+            <select id="inputF" class="form-select">
+                <option value="">— Seleccioná un formato —</option>
+                <option value="Texto">📄 Texto</option>
+                <option value="Gráfico">📈 Gráfico</option>
+                <option value="Tabla">📋 Tabla</option>
+                <option value="Dashboard">📊 Dashboard</option>
+                <option value="Otro">🔧 Otro</option>
+            </select>
+            <p class="form-hint">¿En qué formato te gustaría ver la respuesta?</p>
+        </div>
+        <button class="submit-btn" id="submitBtn" onclick="submitIdea()">🚀 Publicar idea</button>
+        <div class="success-msg" id="successMsg">✅ ¡Publicado con éxito! Gracias por tu idea.</div>
+        <div class="error-msg" id="errorMsg">⚠️ <span id="errorText"></span></div>
+    </div>
+
+    <div class="toolbar">
+        <div class="toolbar-left">
+            <div class="toolbar-title">🧱 Ideas <span class="count-badge" id="countBadge">0</span></div>
+            <div class="search-box">
+                <span>🔍</span>
+                <input type="text" id="searchInput" placeholder="Buscar ideas..." oninput="renderIdeas()">
+            </div>
+        </div>
+        <select class="sort-select" id="sortSelect" onchange="renderIdeas()">
+            <option value="votos-desc">🔥 Más votadas</option>
+            <option value="fecha-desc">🕐 Más recientes</option>
+            <option value="fecha-asc">📅 Más antiguas</option>
+        </select>
+    </div>
+
+    <div class="ideas-grid" id="ideasGrid">
+        <div class="state-container">
+            <span class="state-icon">⏳</span>
+            <p>Conectando con la base de datos...</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyCq-3buQjF4ilDvUkd6Xj-znZnOXRtkb0Q",
+    authDomain: "muro-ideas-homecare.firebaseapp.com",
+    databaseURL: "https://muro-ideas-homecare-default-rtdb.firebaseio.com",
+    projectId: "muro-ideas-homecare",
+    storageBucket: "muro-ideas-homecare.firebasestorage.app",
+    messagingSenderId: "911675318571",
+    appId: "1:911675318571:web:9fad33032f0481dbbba56e"
+};
+
+let db, ideasRef, allIdeas = [];
+
+function escHtml(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function isVoted(k) { return (JSON.parse(localStorage.getItem("hc_muro_votes") || "[]")).includes(k); }
+function setVoted(k) { const v = JSON.parse(localStorage.getItem("hc_muro_votes") || "[]"); if (!v.includes(k)) v.push(k); localStorage.setItem("hc_muro_votes", JSON.stringify(v)); }
+function removeVoted(k) { localStorage.setItem("hc_muro_votes", JSON.stringify((JSON.parse(localStorage.getItem("hc_muro_votes") || "[]")).filter(v => v !== k))); }
+function formatDate(ts) { return ts ? new Date(ts).toLocaleDateString("es-AR", { day: "numeric", month: "short", year: "numeric" }) : "hoy"; }
+
+function showMsg(type, msg) {
+    const el = document.getElementById(type === "ok" ? "successMsg" : "errorMsg");
+    if (type === "ok") el.textContent = "✅ " + msg; else document.getElementById("errorText").textContent = msg;
+    el.classList.add("show"); setTimeout(() => el.classList.remove("show"), 4000);
+}
+function hideMessages() { document.getElementById("successMsg").classList.remove("show"); document.getElementById("errorMsg").classList.remove("show"); }
+
+function renderIdeas() {
+    const grid = document.getElementById("ideasGrid");
+    const search = document.getElementById("searchInput").value.toLowerCase().trim();
+    const sort = document.getElementById("sortSelect").value;
+    let f = allIdeas.filter(i => !search || ((i.pregunta||"")+" "+(i.respuesta||"")+" "+(i.formato||"")).toLowerCase().includes(search));
+    if (sort==="votos-desc") f.sort((a,b)=>(b.votos||0)-(a.votos||0));
+    else if (sort==="fecha-desc") f.sort((a,b)=>(b.fecha||0)-(a.fecha||0));
+    else f.sort((a,b)=>(a.fecha||0)-(b.fecha||0));
+    document.getElementById("countBadge").textContent = f.length;
+    if (!f.length) { grid.innerHTML = '<div class="state-container"><span class="state-icon">'+(search?'🔍':'📭')+'</span><p><strong>'+(search?"No se encontraron resultados":"¡Todavía no hay ideas!")+'</strong></p><p style="font-size:0.85rem;margin-top:4px;">'+(search?"Probá con otra búsqueda.":"Sé el primero en publicar una. 🚀")+'</p></div>'; return; }
+    let h = "";
+    f.forEach(i => {
+        const voted = isVoted(i.key), preg = i.pregunta ? escHtml(i.pregunta) : "", resp = i.respuesta ? escHtml(i.respuesta) : "", fmt = i.formato ? escHtml(i.formato) : "";
+        h += '<div class="idea-card"><div class="card-header">'+(fmt?'<span class="card-formato">'+fmt+'</span>':'<span></span>')+'<span class="card-date">📅 '+formatDate(i.fecha)+'</span></div>';
+        if (preg) h += '<div class="card-section"><div class="card-label">❓ Pregunta / Idea</div><div class="card-text">'+preg+'</div></div>';
+        if (resp) h += '<div class="card-section"><div class="card-label">💬 Respuesta sugerida</div><div class="card-text">'+resp+'</div></div>';
+        if (!preg && !resp) h += '<div class="card-section"><div class="card-text empty">Sin contenido</div></div>';
+        h += '<div class="card-footer"><button class="vote-btn '+(voted?"voted":"")+'" onclick="toggleVote(\''+i.key+'\','+(i.votos||0)+','+(voted?'true':'false')+')">'+(voted?'✅':'👍')+' <span>'+(i.votos||0)+'</span></button>';
+        h += '<button class="delete-btn" onclick="deleteIdea(\''+i.key+'\')" title="Eliminar">🗑️</button></div></div>';
+    });
+    grid.innerHTML = h;
+}
+
+async function toggleVote(k, v, voted) {
+    if (!ideasRef) return;
+    try { if (voted) { await ideasRef.child(k).update({votos:Math.max(0,v-1)}); removeVoted(k); } else { await ideasRef.child(k).update({votos:v+1}); setVoted(k); } } catch(e) { console.error(e); }
+}
+
+async function deleteIdea(k) {
+    if (!ideasRef || !confirm("¿Seguro que querés eliminar esta idea?")) return;
+    try { await ideasRef.child(k).remove(); removeVoted(k); } catch(e) { showMsg("err","No se pudo eliminar."); }
+}
+
+async function submitIdea() {
+    hideMessages();
+    const q = document.getElementById("inputQ").value.trim(), a = document.getElementById("inputA").value.trim(), f = document.getElementById("inputF").value;
+    if (!q && !a) { showMsg("err","Completá al menos la pregunta o la respuesta."); document.getElementById("formSection").classList.add("shake"); setTimeout(()=>document.getElementById("formSection").classList.remove("shake"),500); return; }
+    const btn = document.getElementById("submitBtn"); btn.disabled = true; btn.textContent = "⏳ Publicando...";
+    try {
+        await ideasRef.push({ pregunta: q, respuesta: a, formato: f, votos: 0, fecha: firebase.database.ServerValue.TIMESTAMP });
+        document.getElementById("inputQ").value = ""; document.getElementById("inputA").value = ""; document.getElementById("inputF").value = "";
+        showMsg("ok","¡Publicado con éxito! Gracias por tu idea.");
+    } catch(e) { showMsg("err","No se pudo publicar. Intentá de nuevo."); }
+    finally { btn.disabled = false; btn.textContent = "🚀 Publicar idea"; }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    try {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.database();
+        ideasRef = db.ref("muro_ideas");
+        ideasRef.on("value", snap => {
+            const data = snap.val(); allIdeas = [];
+            if (data) Object.keys(data).forEach(k => allIdeas.push({key:k,...data[k]}));
+            renderIdeas();
+        }, err => {
+            document.getElementById("ideasGrid").innerHTML = '<div class="state-container"><span class="state-icon">🔌</span><p><strong>No se pudo conectar</strong></p><button class="retry-btn" onclick="location.reload()">🔄 Reintentar</button></div>';
+        });
+    } catch(e) { document.getElementById("ideasGrid").innerHTML = '<div class="state-container"><span class="state-icon">🔌</span><p>'+escHtml(e.message)+'</p></div>'; }
+});
+</script>
+</body>
+</html>
