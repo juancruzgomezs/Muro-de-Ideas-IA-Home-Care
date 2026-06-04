@@ -38,7 +38,8 @@
             pointer-events: none;
         }
         .header-inner { position: relative; z-index: 1; }
-        .header-emoji { font-size: 3.5rem; display: block; margin-bottom: 12px; }
+        .header-emoji { font-size: 3.5rem; display: block; margin-bottom: 12px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .header h1 { font-size: 2.8rem; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 6px; }
         .header .subtitle { font-size: 0.85rem; color: rgba(255,255,255,0.65); font-weight: 400; letter-spacing: 3px; text-transform: uppercase; }
         .wave { position: absolute; bottom: -1px; left: 0; width: 100%; }
